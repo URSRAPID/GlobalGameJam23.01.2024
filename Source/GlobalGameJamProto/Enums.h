@@ -4,18 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "WallsScript.h"
-#include "HouseGen.generated.h"
-
+#include "Enums.generated.h"
 
 UCLASS()
-class GLOBALGAMEJAMPROTO_API AHouseGen : public AActor
+class GLOBALGAMEJAMPROTO_API AEnums : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AHouseGen();
+	AEnums();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,9 +23,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
-	UPROPERTY(EditAnywhere)
-	float gridOffsetMultiplier;
-	UPROPERTY(EditAnywhere);
-	TSubclassOf<class AWallsScript> bpWallsClass;
 };
+
+
+enum WALL_LOCATION
+{
+	north_wall,
+	east_wall,
+	south_wall,
+	west_wall
+};
+
+UENUM()
+enum WALL_TYPE
+{
+	salon UMETA(DisplayName = "salon"),
+	chambre UMETA(DisplayName = "chambre"),
+	cuisine UMETA(DisplayName = "cuisine"),
+	salle_de_bain UMETA(DisplayName = "salle de bain")
+};
+

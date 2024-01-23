@@ -14,8 +14,17 @@ AHouseGen::AHouseGen()
 // Called when the game starts or when spawned
 void AHouseGen::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
+
+    FVector pos;
+    FRotator rot;
+    FActorSpawnParameters spawnParams;
+    spawnParams.Owner = this;
+
+    AWallsScript* mySpawn = GetWorld()->SpawnActor<AWallsScript>(bpWallsClass, pos, rot, spawnParams);
+    mySpawn->SetWallLocationAndType(WALL_TYPE::chambre, WALL_LOCATION::west_wall);
+    mySpawn->SetStaticMesh();
+    mySpawn->RotateStaticMeshToLocation();
 }
 
 // Called every frame
