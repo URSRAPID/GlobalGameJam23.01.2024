@@ -24,10 +24,22 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void FillRoomsArray();
+	void GenWalls();
+	void SpawnAWall(FVector pos, WALL_TYPE wallType, WALL_LOCATION wallLocation);
 
 private:
 	UPROPERTY(EditAnywhere)
 	float gridOffsetMultiplier;
-	UPROPERTY(EditAnywhere);
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<class AWallsScript> bpWallsClass;
+	TArray<TArray<ROOMS_CELL>> roomsArray;
+	TArray<TArray<WALL_LOCATION>> wallsNorthArray;
+	TArray<TArray<WALL_LOCATION>> wallsEastArray;
+	TArray<TArray<WALL_LOCATION>> wallsSouthArray;
+	TArray<TArray<WALL_LOCATION>> wallsWestArray;
+	TArray<ROOMS_CELL> roomsLeft;
+
+	UPROPERTY(EditAnywhere)
+	TMap<TEnumAsByte<ROOMS_CELL>, FVector2D> roomsSizes;
 };
