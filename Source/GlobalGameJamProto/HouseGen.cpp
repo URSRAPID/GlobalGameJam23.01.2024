@@ -66,13 +66,15 @@ void AHouseGen::FillRoomsArray()
         UE_LOG(LogTemp, Warning, TEXT("%d"), roomsLeft.Num());
         switch (i) {
         case 0:xOffset = 0; yOffset = 0; break;
-        case 1:yTotalSize += yRoomSize; xOffset = 0; yOffset = yRoomSize; break;
-        case 2:xTotalSize += xRoomSize; yTotalSize += yRoomSize; xOffset = xRoomSize; yOffset = 0; break;
+        case 1:yRoomOneSize = yRoomSize; xRoomOneSize = xRoomSize; yTotalSize += yRoomSize; xOffset = 0; yOffset = yRoomSize; break;
+        case 2:xTotalSize += xRoomSize; yTotalSize += yRoomSize; xOffset = xRoomSize; yOffset = 0; xRoomTwoSize = xRoomSize; break;
         }
         int minRoomSize = roomsSizes[currentRoom].X;
         int maxRoomSize = roomsSizes[currentRoom].Y;
         xRoomSize = FMath::RandRange(minRoomSize, maxRoomSize);
         yRoomSize = FMath::RandRange(minRoomSize, maxRoomSize);
+        
+        
         if (i == 2) { yOffset = yTotalSize - yRoomSize; xTotalSize += xRoomSize; }
 
         for (int j = 0; j < xRoomSize; j++) { //commencer à gen prochaine salle avec offset 1ère salle, offset que par y au 1er puis par x 2ème (+ offset 1er - maxSize) -- done
@@ -123,6 +125,9 @@ void AHouseGen::FillRoomsArray()
             }
         }
     }
+
+    xHouseSize = xTotalSize + 2;
+    yHouseSize = yTotalSize;
 }
 
 void AHouseGen::GenWalls()
@@ -202,12 +207,23 @@ void AHouseGen::CheckForDoors()
                 wallsTypesEastArray[i][j-1] = ConvertToDoor(wallsTypesEastArray[i][j]);
                 wallsTypesWestArray[i][j] = ConvertToDoor(wallsTypesWestArray[i][j]);
                 wallsTypesWestArray[i][j+1] = ConvertToDoor(wallsTypesWestArray[i][j]);
-                wallsTypesSouthArray[i][j] = ConvertToDoor(wallsTypesWestArray[i][j]);
-                wallsTypesNorthArray[i-1][j] = ConvertToDoor(wallsTypesWestArray[i][j]);
+                wallsTypesSouthArray[i][j] = ConvertToDoor(wallsTypesSouthArray[i][j]);
+                wallsTypesNorthArray[i-1][j] = ConvertToDoor(wallsTypesNorthArray[i][j]);
                 UE_LOG(LogTemp, Warning, TEXT("DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR"));
+                return;
             }
         }
     }
+
+    UE_LOG(LogTemp, Error, TEXT("%d,0"), xRoomOneSize);
+    wallsTypesNorthArray[xRoomOneSize-1][0] = ConvertToDoor(wallsTypesNorthArray[xRoomOneSize-1][0]);
+    wallsTypesSouthArray[xRoomOneSize][0] = ConvertToDoor(wallsTypesSouthArray[xRoomOneSize][0]);
+    wallsTypesWestArray[0][yRoomOneSize] = ConvertToDoor(wallsTypesWestArray[0][yRoomOneSize]);
+    wallsTypesEastArray[0][yRoomOneSize-1] = ConvertToDoor(wallsTypesEastArray[0][yRoomOneSize-1]);
+    wallsTypesNorthArray[xRoomTwoSize-1][yHouseSize-1] = ConvertToDoor(wallsTypesNorthArray[xRoomTwoSize - 1][yHouseSize - 1]);
+    wallsTypesSouthArray[xRoomTwoSize][yHouseSize - 1] = ConvertToDoor(wallsTypesSouthArray[xRoomTwoSize][yHouseSize - 1]);
+    wallsTypesNorthArray[xHouseSize-3][yHouseSize-1] = ConvertToDoor(wallsTypesNorthArray[xHouseSize-3][yHouseSize - 1]);
+    wallsTypesSouthArray[xHouseSize - 2][yHouseSize - 1] = ConvertToDoor(wallsTypesSouthArray[xHouseSize - 2][yHouseSize - 1]);
 }
 
 WALL_TYPE AHouseGen::RoomToWallType(ROOMS_CELL room)
@@ -240,7 +256,7 @@ WALL_TYPE AHouseGen::ConvertToDoor(WALL_TYPE wallType)
     case salon_flat: return salon_door;
     case chambre_flat: return chambre_door;
     }
-    return no_type;
+    return chambre_door; //temp fix
 }
 
 

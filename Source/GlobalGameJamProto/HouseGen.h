@@ -55,4 +55,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	TMap<TEnumAsByte<ROOMS_CELL>, FVector2D> roomsSizes;
 	TArray<AWallsScript*> spawnedWallsArray;
+	int xHouseSize;
+	int yHouseSize;
+	int xRoomOneSize;
+	int yRoomOneSize;
+	int xRoomTwoSize;
 };
