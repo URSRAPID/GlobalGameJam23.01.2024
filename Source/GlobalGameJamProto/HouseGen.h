@@ -31,6 +31,10 @@ public:
 	void GenerateAll();
 	UFUNCTION(BlueprintCallable)
 	void DestroyWalls();
+	void CheckForDoors();
+	WALL_TYPE RoomToWallType(ROOMS_CELL room);
+	WALL_TYPE RoomToDoorType(ROOMS_CELL room);
+	WALL_TYPE ConvertToDoor(WALL_TYPE wallType);
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -42,6 +46,10 @@ private:
 	TArray<TArray<WALL_LOCATION>> wallsEastArray;
 	TArray<TArray<WALL_LOCATION>> wallsSouthArray;
 	TArray<TArray<WALL_LOCATION>> wallsWestArray;
+	TArray<TArray<WALL_TYPE>> wallsTypesNorthArray;
+	TArray<TArray<WALL_TYPE>> wallsTypesEastArray;
+	TArray<TArray<WALL_TYPE>> wallsTypesSouthArray;
+	TArray<TArray<WALL_TYPE>> wallsTypesWestArray;
 	TArray<ROOMS_CELL> roomsLeft;
 
 	UPROPERTY(EditAnywhere)

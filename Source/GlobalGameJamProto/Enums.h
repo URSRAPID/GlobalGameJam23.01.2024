@@ -37,10 +37,22 @@ enum WALL_LOCATION
 UENUM()
 enum WALL_TYPE
 {
+	no_type UMETA(DisplayName = "no type"),
+
 	salon_flat UMETA(DisplayName = "salon flat"),
 	chambre_flat UMETA(DisplayName = "chambre flat"),
 	cuisine_flat UMETA(DisplayName = "cuisine flat"),
-	salle_de_bain_flat UMETA(DisplayName = "salle de bain flat")
+	salle_de_bain_flat UMETA(DisplayName = "salle de bain flat"),
+
+	salon_window UMETA(DisplayName = "salon window"),
+	chambre_window UMETA(DisplayName = "chambre window"),
+	cuisine_window UMETA(DisplayName = "cuisine window"),
+	salle_de_bain_window UMETA(DisplayName = "salle de bain window"),
+
+	salon_door UMETA(DisplayName = "salon door"),
+	chambre_door UMETA(DisplayName = "chambre door"),
+	cuisine_door UMETA(DisplayName = "cuisine door"),
+	salle_de_bain_door UMETA(DisplayName = "salle de bain door")
 };
 
 UENUM()
