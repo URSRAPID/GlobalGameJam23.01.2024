@@ -27,6 +27,10 @@ public:
 	void FillRoomsArray();
 	void GenWalls();
 	void SpawnAWall(FVector pos, WALL_TYPE wallType, WALL_LOCATION wallLocation);
+	UFUNCTION(BlueprintCallable)
+	void GenerateAll();
+	UFUNCTION(BlueprintCallable)
+	void DestroyWalls();
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -42,4 +46,5 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TMap<TEnumAsByte<ROOMS_CELL>, FVector2D> roomsSizes;
+	TArray<AWallsScript*> spawnedWallsArray;
 };
