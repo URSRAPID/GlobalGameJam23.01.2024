@@ -22,6 +22,8 @@ public:
 	void RotateStaticMeshToLocation();
 	void SetWallLocationAndType(WALL_TYPE wallType, WALL_LOCATION wallLocation);
 
+	void SpawnMeuble();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -33,10 +35,16 @@ public:
 private:
 	TEnumAsByte<WALL_TYPE> currentWallType;
 	TEnumAsByte<WALL_LOCATION> currentWallLocation;
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* staticMeshComponent = nullptr;
 	UArrowComponent* arrowComponent = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	TMap<TEnumAsByte<WALL_TYPE>,UStaticMesh*> wallTypeMap;
+	UPROPERTY(EditAnywhere)
+	TMap<TEnumAsByte<ROOMS_CELL>, UStaticMesh*> floorTypeMap;
 	float WallLocationToRotation();
+	UPROPERTY(EditAnywhere)
+	AActor* meubleActor;
+
 };

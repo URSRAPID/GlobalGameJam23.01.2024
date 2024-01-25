@@ -44,6 +44,14 @@ void AWallsScript::SetWallLocationAndType(WALL_TYPE wallType, WALL_LOCATION wall
 	currentWallType = wallType;
 }
 
+void AWallsScript::SpawnMeuble()
+{
+	if (meubleActor == nullptr) { return; }
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = this;
+	//auto mySpawn = GetWorld()->SpawnActor<meubleActor->GetClass()>(meubleActor->GetClass(), GetActorTransform(), FRotator(0, WallLocationToRotation(), 0), spawnParams);
+}
+
 float AWallsScript::WallLocationToRotation()
 {
 	switch (currentWallLocation) {
